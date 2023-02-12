@@ -48,7 +48,7 @@ Route::get('/', function () {
     ]);
 });
 //passing data to a php page //Single Liting
-Route::get('/', function () {
+Route::get('/listings/{id}', function () {
     return view('listings', [
         'heading' => 'Latest Listings',
         'listings' => Listing::all() //pass data from a model
