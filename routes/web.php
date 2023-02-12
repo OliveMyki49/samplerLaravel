@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Listing; //use models specifically the model class
 
 /*
 |--------------------------------------------------------------------------
@@ -39,21 +40,17 @@ Route::get('/posts/{id}', function ($id) { //pass value from url
 Route::get('/search', function (Request $request) {
     return $request->name . ' ' . $request->city . '';
 });
-//passing data to a php page
+//passing data to a php page //All Liting
 Route::get('/', function () {
     return view('listings', [
         'heading' => 'Latest Listings',
-        'listings' => [
-            [
-                'id' => 1,
-                'title' => "Sample title 1",
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-            ],
-            [
-                'id' => 2,
-                'title' => "Sample title 2",
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-            ]
-        ]
+        'listings' => Listing::all() //pass data from a model
+    ]);
+});
+//passing data to a php page //Single Liting
+Route::get('/', function () {
+    return view('listings', [
+        'heading' => 'Latest Listings',
+        'listings' => Listing::all() //pass data from a model
     ]);
 });
