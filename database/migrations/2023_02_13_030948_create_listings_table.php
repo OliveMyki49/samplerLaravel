@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListingTable extends Migration
+class CreateListingsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() //This is a sample file created using migration
+    public function up()
     {
-        Schema::create('listing', function (Blueprint $table) {
+        Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->String('title');
             $table->String('tags');
@@ -33,6 +33,6 @@ class CreateListingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listing');
+        Schema::dropIfExists('listings');
     }
 }
