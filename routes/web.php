@@ -22,7 +22,14 @@ use App\Models\Listing; //use models specifically the model class
 // });
 
 
-
+//Common Resouce Routes:
+// index - show all listings
+// show - show single listing
+// create - show form to create new listing
+// store - store new listing
+// edit - show form to edit listing 
+// update - update listing
+// destroy - delete listing
 
 
 /*FOR DEMO ONLY*/
@@ -45,14 +52,13 @@ Route::get('/search', function (Request $request) {
 //passing data to a php page //All Listing
 Route::get('/', [ListingController::class, 'index']);  //use the controller LisintController index function for this
 
+Route::get('/listings/create', [ListingController::class, 'create']);  //use the controller LisintController index function for this
+
+//store listing data
+Route::post('/listings', [ListingController::class, 'store']); 
+
+// [HARD NOTE: PUT ALL ROUTE THAT GETS VALUES BELOW]
 //passing data to a php page //Single Listing
 Route::get('/listing/{listing}', [ListingController::class, 'show']); 
 
-//Common Resouce Routes:
-// index - show all listings
-// show - show single listing
-// create - show form to create new listing
-// store - store new listing
-// edit - show form to edit listing 
-// update - update listing
-// destroy - delete listing
+
