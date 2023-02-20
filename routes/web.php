@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing; //use models specifically the model class
+//use App\Models\ListingManualCreated; //use models specifically the model class
 
 /*
 |--------------------------------------------------------------------------
@@ -40,14 +41,14 @@ Route::get('/posts/{id}', function ($id) { //pass value from url
 Route::get('/search', function (Request $request) {
     return $request->name . ' ' . $request->city . '';
 });
-//passing data to a php page //All Liting
+//passing data to a php page //All Listing
 Route::get('/', function () {
     return view('listings', [
-        'heading' => 'Latest Listings',
+        'heading' => 'Latest Listing',
         'listings' => Listing::all() //pass data from a model
     ]);
 });
-//passing data to a php page //Single Liting
+//passing data to a php page //Single Listing
 Route::get('/listings/{id}', function () {
     return view('listings', [
         'heading' => 'Latest Listings',
