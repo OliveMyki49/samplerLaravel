@@ -49,9 +49,9 @@ Route::get('/', function () {
     ]);
 });
 //passing data to a php page //Single Listing
-Route::get('/listing/{id}', function ($id) {
+Route::get('/listing/{listing}', function (Listing $listing) { //pass in Listing as variable to abort 404 if data is not available
     return view('listing', [//this is the listing blade file
         'heading' => 'Single Listing',
-        'item' => Listing::find($id) //pass data from a model
+        'item' => $listing
     ]);
 });
