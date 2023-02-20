@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListingController;
 use App\Models\Listing; //use models specifically the model class
 //use App\Models\ListingManualCreated; //use models specifically the model class
 
@@ -42,16 +43,16 @@ Route::get('/search', function (Request $request) {
     return $request->name . ' ' . $request->city . '';
 });
 //passing data to a php page //All Listing
-Route::get('/', function () {
-    return view('listings', [ //this is the listings blade file
-        'heading' => 'Latest Listing',
-        'listings' => Listing::all() //pass data from a model
-    ]);
-});
+Route::get('/', [ListingController::class, 'index']);  //use the controller LisintController index function for this
+
 //passing data to a php page //Single Listing
-Route::get('/listing/{listing}', function (Listing $listing) { //pass in Listing as variable to abort 404 if data is not available
-    return view('listing', [//this is the listing blade file
-        'heading' => 'Single Listing',
-        'item' => $listing
-    ]);
-});
+Route::get('/listing/{listing}', [ListingController::class, 'show']); 
+
+//Common Resouce Routes:
+// index - show all listings
+// show - show single listing
+// create - show form to create new listing
+// store - store new listing
+// edit - show form to edit listing 
+// update - update listing
+// destroy - delete listing
