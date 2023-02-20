@@ -12,7 +12,7 @@ class ListingController extends Controller
     public function index(){
         return view('listings.index', [ //this is the listings folder in view with index blade file
             'heading' => 'Latest Listing',
-            'listings' => Listing::all() //pass data from a model //Listing:: is an model connected to database
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->get() //pass data from a model //Listing:: is an model connected to database
         ]);
     }
 
