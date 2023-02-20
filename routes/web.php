@@ -43,15 +43,15 @@ Route::get('/search', function (Request $request) {
 });
 //passing data to a php page //All Listing
 Route::get('/', function () {
-    return view('listings', [
+    return view('listings', [ //this is the listings blade file
         'heading' => 'Latest Listing',
         'listings' => Listing::all() //pass data from a model
     ]);
 });
 //passing data to a php page //Single Listing
-Route::get('/listings/{id}', function () {
-    return view('listings', [
-        'heading' => 'Latest Listings',
-        'listings' => Listing::all() //pass data from a model
+Route::get('/listing/{id}', function ($id) {
+    return view('listing', [//this is the listing blade file
+        'heading' => 'Single Listing',
+        'item' => Listing::find($id) //pass data from a model
     ]);
 });

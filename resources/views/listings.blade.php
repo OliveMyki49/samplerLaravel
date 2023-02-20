@@ -10,7 +10,7 @@
 
 @foreach($listings as $item)<!-- pass data using foreach -->
         <h3>
-            <a href="/listings/{{$item['id']}}"> {{$item['id']}} | {{$item['title']}}</a>
+            <a href="/listing/{{$item['id']}}"> {{$item['id']}} | {{$item['title']}}</a>
         </h3>
         <p>{{$item['description']}}</p>
     </tr>
