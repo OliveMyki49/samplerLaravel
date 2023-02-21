@@ -7,7 +7,7 @@
             <p class="mb-4">Post a gig to find a developer</p>
         </header>
 
-        <form action="/listings" method="POST">
+        <form action="/listings" method="POST" enctype="multipart/form-data">{{-- enctype="multipart/form-data allow uploading of image data --}}
             @csrf {{-- include @csrf to stop server side scripting --}}
             <div class="mb-6">
                 <label
@@ -43,10 +43,10 @@
 
 
                 @error('title') {{-- show error message here if company input have error --}}
-                <p class="text-red-500 text-xs mt-1">
-                    {{$message}}
-                </p>
-            @enderror
+                    <p class="text-red-500 text-xs mt-1">
+                        {{$message}}
+                    </p>
+                @enderror
             </div>
 
             <div class="mb-6">
@@ -64,10 +64,10 @@
                 /> {{-- old('company') values stays even after error in form --}}
 
                 @error('location') {{-- show error message here if company input have error --}}
-                <p class="text-red-500 text-xs mt-1">
-                    {{$message}}
-                </p>
-            @enderror
+                    <p class="text-red-500 text-xs mt-1">
+                        {{$message}}
+                    </p>
+                @enderror
             </div>
 
             <div class="mb-6">
@@ -82,10 +82,10 @@
                 /> {{-- old('company') values stays even after error in form --}}
 
                 @error('email') {{-- show error message here if company input have error --}}
-                <p class="text-red-500 text-xs mt-1">
-                    {{$message}}
-                </p>
-            @enderror
+                    <p class="text-red-500 text-xs mt-1">
+                        {{$message}}
+                    </p>
+                @enderror
             </div>
 
             <div class="mb-6">
@@ -99,7 +99,7 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="website"
-                    value="{{old('company')}}"
+                    value="{{old('website')}}"
                 /> {{-- old('company') values stays even after error in form --}}
 
                 @error('website') {{-- show error message here if company input have error --}}
@@ -118,17 +118,18 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="tags"
                     placeholder="Example: Laravel, Backend, Postgres, etc"
-                    value="{{old('company')}}"
+                    value="{{old('tags')}}"
                 /> {{-- old('company') values stays even after error in form --}}
 
                 @error('tags') {{-- show error message here if company input have error --}}
-                <p class="text-red-500 text-xs mt-1">
-                    {{$message}}
-                </p>
-            @enderror
+                    <p class="text-red-500 text-xs mt-1">
+                        {{$message}}
+                    </p>
+                @enderror
             </div>
 
-            {{-- <div class="mb-6">
+            {{-- allow to upload file --}}
+            <div class="mb-6">
                 <label for="logo" class="inline-block text-lg mb-2">
                     Company Logo
                 </label>
@@ -137,7 +138,13 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="logo"
                 />
-            </div> --}}
+                
+                @error('logo') {{-- show error message here if company input have error --}}
+                    <p class="text-red-500 text-xs mt-1">
+                        {{$message}}
+                    </p>
+                @enderror
+            </div>
 
             <div class="mb-6">
                 <label
@@ -151,14 +158,14 @@
                     name="description"
                     rows="10"
                     placeholder="Include tasks, requirements, salary, etc"
-                    value="{{old('company')}}"
+                    value="{{old('description')}}"
                 ></textarea>
                 
                 @error('description') {{-- show error message here if company input have error --}}
-                <p class="text-red-500 text-xs mt-1">
-                    {{$message}}
-                </p>
-            @enderror
+                    <p class="text-red-500 text-xs mt-1">
+                        {{$message}}
+                    </p>
+                @enderror
             </div>
 
             <div class="mb-6">

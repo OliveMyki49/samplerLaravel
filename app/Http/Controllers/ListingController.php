@@ -13,7 +13,14 @@ class ListingController extends Controller
     public function index(){
         return view('listings.index', [ //this is the listings folder in view with index blade file
             'heading' => 'Latest Listing',
-            'listings' => Listing::latest()->filter(request(['tag', 'search']))->get() //pass data from a model //Listing:: is an model connected to database
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(4) //pass data from a model //Listing:: is an model connected to database
+            //paginate takes data depending on how many parameters are taken in the program
+
+            
+           //'listings' => Listing::latest()->filter(request(['tag', 'search']))->simplePaginate(2) //simple paginate only preivous and next without numbers
+            //to add pagination run this to cmd
+            //>php artisan vendor:publish
+
         ]);
     }
 
@@ -32,6 +39,7 @@ class ListingController extends Controller
 
     //Store listing data
     public function store(Request $request){
+        //dd($request->file('logo'));
         $formFields = $request->validate([ //check if values are available before submiting for database input
             'title' => 'required',
             'company' => ['required', Rule::unique('listings', 'company')], //RULE::unique will only take values that have no similraties to any value available in the table 'listings' in column 'company'
@@ -42,7 +50,12 @@ class ListingController extends Controller
             'description' => 'required'
         ]);
 
-        Listing::create($formFields);
+        if($request->hasFile('logo')){ //thsi will store the uploaded image in the public app file allong with its name extension in the database
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+            //store('logos', 'public'); will create logos folder in the storage app
+        }
+
+        Listing::create($formFields); //this will be the query that will store the data such as the formFields
 
         return redirect('/')->with('message', 'Listing created successfully'); //go back home then display a message
     }

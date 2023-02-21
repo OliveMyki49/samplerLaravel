@@ -29,7 +29,11 @@
         @else
             <p>No Data Found</p>
         @endunless
-
+        
+        {{-- This will perform pagination pages that can be seen in the page --}}
+        <div class="mt-6 p-4">
+            {{ $listings->links() }}
+        </div>
     </div>
 
 </x-layout> {{-- end of layout component --}}

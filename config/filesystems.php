@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    // change from local to public
+    'default' => env('FILESYSTEM_DRIVER', 'public'), 
 
     /*
     |--------------------------------------------------------------------------

@@ -14,11 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        \App\Models\User::factory(10)->create();
-
-        Listing::factory(5)->create();
-=======
         //this function will create 5 dummy users if you uncomment
         \App\Models\User::factory(5)->create();
 
@@ -48,6 +43,5 @@ class DatabaseSeeder extends Seeder
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
         ]);
         */
->>>>>>> 219a5cecbd5032b7237a678353080091c1472318
     }
 }
