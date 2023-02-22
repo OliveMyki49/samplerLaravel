@@ -49,12 +49,21 @@ class ListingController extends Controller
             'description' => 'required',
 
             //'logo' => 'required|mimes:.JPG,.jpg,.png,.jpeg|max:5048'
-            'logo' => 'required' //enable to send image file in database
+            'logo' => 'file', //enable to send image file in database
         ]);
 
         if($request->hasFile('logo')){ //thsi will store the uploaded image in the public app file allong with its name extension in the database
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
             //store('logos', 'public'); will create logos folder in the storage app
+        }
+
+            
+        // create a user relation
+        // every time new listing is added the id of the user who input the data will also recorded in the database listings 
+        if (auth()->check()) {
+            $formFields['user_id'] = auth()->id();
+        } else {
+            return redirect()->back()->with('error', 'You must be logged in to create a listing.');
         }
 
         Listing::create($formFields); //this will be the query that will store the data such as the formFields

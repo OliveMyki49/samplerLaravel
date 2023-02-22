@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListingController;
 use App\Models\Listing; //use models specifically the model class
 //use App\Models\ListingManualCreated; //use models specifically the model class
@@ -55,20 +56,35 @@ Route::get('/search', function (Request $request) {
 Route::get('/', [ListingController::class, 'index']);  //use the controller LisintController index function for this
 
 //show create form
-Route::get('/listings/create', [ListingController::class, 'create']);  //use the controller ListingController index function for this
+Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');  //use the controller ListingController index function for this
 //store listing data
-Route::post('/listings', [ListingController::class, 'store']); 
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth'); //->middleware('auth') is found in the middleware Authenticate.php
 
 //show edit date
-Route::get('/listing/{listing}/edit', [ListingController::class, 'edit']);  //use the controller ListingController index function for this
+Route::get('/listing/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');  //use the controller ListingController index function for this
 //show edit to submit update
-Route::put('/listing/{listing}/update', [ListingController::class, 'update']);  //use the controller ListingController index function for this
+Route::put('/listing/{listing}/update', [ListingController::class, 'update'])->middleware('auth');  //use the controller ListingController index function for this
 
 //perform delete action
-Route::delete('/listing/{listing}/delete', [ListingController::class, 'destroy']);  //use the controller ListingController index function for this
+Route::delete('/listing/{listing}/delete', [ListingController::class, 'destroy'])->middleware('auth');  //use the controller ListingController index function for this
 
 // [HARD NOTE: PUT ALL ROUTE THAT GETS VALUES BELOW]
 //passing data to a php page //Single Listing
 Route::get('/listing/{listing}', [ListingController::class, 'show']); 
+
+// show register/create form
+Route::get('/register', [UserController::class, 'create'])->middleware('guest'); //->middleware('guast') for guest only
+// If UserController does not exist, create one
+// >    php artisan make:controller UserController
+// create user form
+Route::post('/users', [UserController::class, 'store']);
+
+// Logout Request
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+// show login form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');//->name('login') will be used for user aithetication middleware
+// login user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 

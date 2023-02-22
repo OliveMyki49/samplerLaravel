@@ -15,6 +15,7 @@ class CreateListingsTable extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); //this will keep track of user who created a data to listings table
             $table->String('title');
             $table->String('logo')->nullable(); //store image text in database
             $table->String('tags');

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Listing;
 use Illuminate\Database\Seeder;
 
@@ -15,10 +16,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //this function will create 5 dummy users if you uncomment
-        \App\Models\User::factory(5)->create();
+        // \App\Models\User::factory(5)->create();
+
+        //create only 1 user when seeded
+        $user = User::factory()->create([
+            'name' => 'Olive Myki',
+            'email' => "OliveMyki@gmail.com"
+        ]);
+
+        //seeding using a factory that is linkd to the created user
+        Listing::factory(10)->create([
+            'user_id' => $user->id
+        ]);
 
         //seeding using a factory
-        Listing::factory(10)->create();
+        // Listing::factory(10)->create();
 
         //Manual Seeding method
         /*
