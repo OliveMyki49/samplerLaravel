@@ -2,13 +2,14 @@
     <x-card class="p-10 max-w-lg mx-auto mt-24">
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1">
-                Create a Gig
+                Edit Gig
             </h2>
-            <p class="mb-4">Post a gig to find a developer</p>
+            <p class="mb-4">Edit: {{$listing->title}}</p>
         </header>
 
-        <form action="/listings" method="POST" enctype="multipart/form-data">{{-- enctype="multipart/form-data allow uploading of image data --}}
-            @csrf {{-- include @csrf to stop server side scripting --}}
+        <form action="/listing/{{$listing->id}}/update" method="POST" enctype="multipart/form-data">{{-- enctype="multipart/form-data allow uploading of image data --}}
+            @csrf {{-- include @csrf directive to stop server side scripting --}}
+            @method('PUT') {{--used to create a put method--}}
             <div class="mb-6">
                 <label
                     for="company"
@@ -19,8 +20,8 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="company"
-                    value="{{old('company')}}"
-                /> {{-- old('company') values stays even after error in form --}}
+                    value="{{$listing->company}}"
+                /> {{--value will came from the $listing--}}
 
                 @error('company') {{-- show error message here if company input have error --}}
                     <p class="text-red-500 text-xs mt-1">
@@ -38,8 +39,8 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="title"
                     placeholder="Example: Senior Laravel Developer"
-                    value="{{old('title')}}"
-                /> {{-- old('company') values stays even after error in form --}}
+                    value="{{$listing->title}}"
+                /> {{--value will came from the $listing--}}
 
 
                 @error('title') {{-- show error message here if company input have error --}}
@@ -60,8 +61,8 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="location"
                     placeholder="Example: Remote, Boston MA, etc"
-                    value="{{old('location')}}"
-                /> {{-- old('company') values stays even after error in form --}}
+                    value="{{$listing->location}}"
+                /> {{--value will came from the $listing--}}
 
                 @error('location') {{-- show error message here if company input have error --}}
                     <p class="text-red-500 text-xs mt-1">
@@ -78,8 +79,8 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="email"
-                    value="{{old('email')}}"
-                /> {{-- old('company') values stays even after error in form --}}
+                    value="{{$listing->email}}"
+                /> {{--value will came from the $listing--}}
 
                 @error('email') {{-- show error message here if company input have error --}}
                     <p class="text-red-500 text-xs mt-1">
@@ -99,8 +100,8 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="website"
-                    value="{{old('website')}}"
-                /> {{-- old('company') values stays even after error in form --}}
+                    value="{{$listing->website}}"
+                /> {{--value will came from the $listing--}}
 
                 @error('website') {{-- show error message here if company input have error --}}
                 <p class="text-red-500 text-xs mt-1">
@@ -118,8 +119,8 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="tags"
                     placeholder="Example: Laravel, Backend, Postgres, etc"
-                    value="{{old('tags')}}"
-                /> {{-- old('company') values stays even after error in form --}}
+                    value="{{$listing->tags}}"
+                /> {{--value will came from the $listing--}}
 
                 @error('tags') {{-- show error message here if company input have error --}}
                     <p class="text-red-500 text-xs mt-1">
@@ -137,6 +138,13 @@
                     type="file"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="logo"
+                />
+
+                <img
+                    class="w-48 mr-6 mb-6"
+                    {{-- to check if there is an image logo in the database use the src="" code below --}}
+                    src="{{$listing->logo ? asset('storage/'. $listing->logo) :  asset('images/no-image.png')}}" 
+                    alt=""
                 />
                 
                 @error('logo') {{-- show error message here if company input have error --}}
@@ -158,7 +166,7 @@
                     name="description"
                     rows="10"
                     placeholder="Include tasks, requirements, salary, etc"
-                >{{old('description')}}</textarea>
+                >{{$listing->description}}</textarea>
                 
                 @error('description') {{-- show error message here if company input have error --}}
                     <p class="text-red-500 text-xs mt-1">
@@ -171,7 +179,7 @@
                 <button
                     class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                 >
-                    Create Gig
+                    Update Gig
                 </button>
 
                 <a href="/" class="text-black ml-4"> Back </a>

@@ -22,7 +22,8 @@
             >
                 <img
                     class="w-48 mr-6 mb-6"
-                    src="{{ asset('images/no-image.png') }}"
+                    {{-- to check if there is an image logo in the database use the src="" code below --}}
+                    src="{{$item->logo ? asset('storage/'. $item->logo) :  asset('images/no-image.png')}}" 
                     alt=""
                 />
 
@@ -62,6 +63,22 @@
                 </div>
             </div>
         </x-card>
+
+        <x-card class="mt-4 p-2 flex space-x-6">
+            <a href="/listing/{{ $item->id }}/edit">
+                <i class="fa-solid fa-pencil"></i> Edit
+            </a>
+
+            
+            <form action="/listing/{{$item->id}}/delete" method="POST">
+                @csrf {{-- Prevents cross platform injection --}}
+                @method('DELETE') {{-- method POST DELETE --}}
+                <button class="text-red-500 ">
+                    <i class="fa-solid fa-trash"></i> DELETE
+                </button>
+            </form>
+        </x-card>
+
     </div>
 
 </x-layout> {{-- end of layout component --}}

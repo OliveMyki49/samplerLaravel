@@ -49,13 +49,23 @@ Route::get('/posts/{id}', function ($id) { //pass value from url
 Route::get('/search', function (Request $request) {
     return $request->name . ' ' . $request->city . '';
 });
+
+
 //passing data to a php page //All Listing
 Route::get('/', [ListingController::class, 'index']);  //use the controller LisintController index function for this
 
-Route::get('/listings/create', [ListingController::class, 'create']);  //use the controller LisintController index function for this
-
+//show create form
+Route::get('/listings/create', [ListingController::class, 'create']);  //use the controller ListingController index function for this
 //store listing data
 Route::post('/listings', [ListingController::class, 'store']); 
+
+//show edit date
+Route::get('/listing/{listing}/edit', [ListingController::class, 'edit']);  //use the controller ListingController index function for this
+//show edit to submit update
+Route::put('/listing/{listing}/update', [ListingController::class, 'update']);  //use the controller ListingController index function for this
+
+//perform delete action
+Route::delete('/listing/{listing}/delete', [ListingController::class, 'destroy']);  //use the controller ListingController index function for this
 
 // [HARD NOTE: PUT ALL ROUTE THAT GETS VALUES BELOW]
 //passing data to a php page //Single Listing
