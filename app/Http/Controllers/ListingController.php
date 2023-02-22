@@ -119,7 +119,8 @@ class ListingController extends Controller
         return redirect('/')->with('message', 'Item deleted successfully');
     }
 
-    //Manage Funciton
+    //Manage Function
+    //get all the list of items create or inserted by the specific user in the table listing
     public function manage(){
         return view('listings.manage', [
             'listings' => auth()->user()->listings()->get()
