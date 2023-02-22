@@ -68,6 +68,9 @@ Route::put('/listing/{listing}/update', [ListingController::class, 'update'])->m
 //perform delete action
 Route::delete('/listing/{listing}/delete', [ListingController::class, 'destroy'])->middleware('auth');  //use the controller ListingController index function for this
 
+// Manage Listing
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
+
 // [HARD NOTE: PUT ALL ROUTE THAT GETS VALUES BELOW]
 //passing data to a php page //Single Listing
 Route::get('/listing/{listing}', [ListingController::class, 'show']); 
@@ -86,5 +89,6 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');//->name('login') will be used for user aithetication middleware
 // login user
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
 
 

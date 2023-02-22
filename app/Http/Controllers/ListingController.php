@@ -78,6 +78,12 @@ class ListingController extends Controller
     //update list
     public function update(Request $request, Listing $listing){
         //dd($request->file('logo'));
+
+        //make sure logged in user is owner
+        if($listing->user_id != auth()->id()){
+            abort(403, 'Unauthorized action');
+        };
+
         $formFields = $request->validate([ //check if values are available before submiting for database input
             'title' => 'required',
             'company' => 'required', //RULE::unique will only take values that have no similraties to any value available in the table 'listings' in column 'company'
@@ -104,7 +110,19 @@ class ListingController extends Controller
     
     //Delete Item
     public function destroy(Listing $listing){ //Listing is a model
+        //make sure logged in user is owner
+        if($listing->user_id != auth()->id()){
+            abort(403, 'Unauthorized action');
+        };
+
         $listing->delete();
         return redirect('/')->with('message', 'Item deleted successfully');
+    }
+
+    //Manage Funciton
+    public function manage(){
+        return view('listings.manage', [
+            'listings' => auth()->user()->listings()->get()
+        ]);
     }
 }
